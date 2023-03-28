@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "modern": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -39,5 +40,11 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+   "lint-staged": {
+    "*.{js,vue}": "vue-cli-service lint"
+  }
 }
