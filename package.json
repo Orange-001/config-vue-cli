@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "modern": "vue-cli-service build --modern",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "inspect-development": "vue-cli-service inspect --mode development > inspect.development.js",
+    "inspect-production": "vue-cli-service inspect --mode production > inspect.production.js"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -41,11 +43,5 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ],
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,vue}": "vue-cli-service lint"
-  }
+  ]
 }
