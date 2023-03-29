@@ -8,7 +8,8 @@
     "modern": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
     "inspect-development": "vue-cli-service inspect --mode development > inspect.development.js",
-    "inspect-production": "vue-cli-service inspect --mode production > inspect.production.js"
+    "inspect-production": "vue-cli-service inspect --mode production > inspect.production.js",
+    "build-lib": "vue-cli-service build --target lib --inline-vue"
   },
   "dependencies": {
     "core-js": "^3.8.3",

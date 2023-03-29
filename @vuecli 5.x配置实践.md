@@ -1,10 +1,8 @@
-# webpack5.x、@vue/cli 5.x、vite 4.x 的配置实践
+## @vue/cli 5.x的配置实践
 
-## @vue/cli 5.x
+##  一、介绍
 
-###  一、介绍
-
-###### 1、基础内容
+### 1、基础内容
 
 ​	1）CLI 
 
@@ -24,9 +22,9 @@
 
   CLI 插件是向你的 Vue 项目提供可选功能的 npm 包。Vue CLI 插件的名字以 `@vue/cli-plugin-` (内建插件) 或 `vue-cli-plugin-` (社区插件) 开头。
 
-#### 2、初始配置
+### 2、初始配置
 
-1）目录
+### 1）目录
 
 ![1679930857056](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1679930857056.png)
 
@@ -122,7 +120,7 @@ module.exports = {
 }
 ```
 
-#### 3、默认配置
+### 3、默认配置
 
 1）默认使用babel、eslint
 
@@ -180,7 +178,31 @@ module.exports = {
 
 ​		[Webpack-chain 从入门到深入 - 掘金 (juejin.cn)](https://juejin.cn/post/6947851867422621733)
 
-#### 4、优化
+11）模式和环境变量
+
+​	当运行 `vue-cli-service` 命令时，所有的环境变量都从对应的[环境文件](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)中载入。共有development、test、production三种模式。[模式和环境变量 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F)
+
+![1680095590880](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1680095590880.png)
+
+​	在代码中始终可用的环境变量
+
+​		VUE_APP_开头的变量：可以在vue.config.js中被赋值
+
+​		NODE_ENV：`"development"`、`"production"` 或 `"test"`，取决于模式。
+
+​		BASE_URL：与vue.config.js中的publicPath相符。
+
+​	注1：除以上三种变量在代码中可用，其余自定义的环境变量只在vue.config.js中能取到值，在别处为undefined
+
+​	注2：环境变量不能在template中直接以process.env.*引用，必须赋值给data中的变量才能使用（插值语法不认识process）。
+
+​	注3：只有以上三种环境变量可以在 `public/index.html` 中以 [HTML 插值](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#%E6%8F%92%E5%80%BC)中介绍的方式使用。
+
+12）构建目标
+
+
+
+### 4、优化
 
 1）现代模式 vue-cli-service build --modern [浏览器兼容性 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/browser-compatibility.html#%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F)
 
@@ -193,13 +215,3 @@ module.exports = {
 ​	[CLI 服务 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/cli-service.html#vue-cli-service-inspect)
 
 
-
-## webpack5.x
-
-
-
-
-
-
-
-## vite 4.x

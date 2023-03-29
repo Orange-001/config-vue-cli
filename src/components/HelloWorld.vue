@@ -35,6 +35,22 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data(){
+    return {
+      VUE_APP_ALL: process.env.VUE_APP_ALL
+    }
+  },
+  created() {
+    this.test();
+  },
+  methods: {
+    test(){
+      console.log(this.VUE_APP_ALL, process.env.TEST)
+      console.log(process.env.BASE_URL)
+      console.log(process.env.VUE_APP_ALL)
+      console.log(process.env.VUE_APP_DEV)
+    }
   }
 }
 </script>
