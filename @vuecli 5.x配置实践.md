@@ -200,7 +200,21 @@ module.exports = {
 
 12）构建目标
 
+​	应用：
 
+​		![1680101089884](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1680101089884.png)
+
+​	库
+
+​	web components组件
+
+​	[构建目标 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/build-targets.html#%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87)
+
+13）history路由模式const Router = new VueRouter({mode: 'history'}...)
+
+​	使用history模式，必须配置nginx，将没有匹配到静态文件的请求回退到index.html，否则访问页面会404。[部署 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/deployment.html#%E4%BD%BF%E7%94%A8-history-pushstate-%E7%9A%84%E8%B7%AF%E7%94%B1)
+
+​	nginx配置见[不同的历史模式 | Vue Router (vuejs.org)](https://router.vuejs.org/zh/guide/essentials/history-mode.html#nginx)
 
 ### 4、优化
 
