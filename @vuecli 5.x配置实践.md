@@ -216,6 +216,10 @@ module.exports = {
 
 ​	nginx配置见[不同的历史模式 | Vue Router (vuejs.org)](https://router.vuejs.org/zh/guide/essentials/history-mode.html#nginx)
 
+14）Vue CLI 应用都使用 `@vue/babel-preset-app`，它包含了 `babel-preset-env`、JSX 支持以及为最小化包体积优化过的配置
+
+
+
 ### 4、优化
 
 1）现代模式 vue-cli-service build --modern [浏览器兼容性 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/browser-compatibility.html#%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F)
@@ -228,4 +232,10 @@ module.exports = {
 
 ​	[CLI 服务 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/cli-service.html#vue-cli-service-inspect)
 
+### 5、其他
 
+1）Runtime + Compiler和Runtime-only的区别
+
+[Vue教程(四十)Runtime + Compiler和Runtime-only的区别_vue build runtime__否极泰来_的博客-CSDN博客](https://blog.csdn.net/yuan_xw/article/details/119699623)
+
+2）
