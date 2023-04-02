@@ -1,6 +1,62 @@
-## @vue/cli 5.x的配置实践
+# @vue/cli 5.x的配置实践
 
-##  一、介绍
+## 一、汇总
+
+### 1、@vue/cli5.x做了哪些工作？
+
+- 引入Babel转换ES代码，使用`@vue/cli-plugin-babel/preset`预设，默认将`useBuildIns: 'usage'`传递给`babel/preset-env`，这样它会根据代码中出现的语言特性自动按需引入polyfill
+- Vue/Babel/TypeScript编译默认开启cache-loader缓存在`node-modules/.cache`
+- 多核CPU的机器上默认为Babel/TypeScript转译开启`thread-loader`，即多线程
+- 默认安装yorkie，让我们在`package.json`的`gitHooks`字段中指定Git hook，通常配合lint-staged使用(pre: 需安装并配置)
+- 默认使用`html-webpack-plugin`处理`public/index.html`模板，自动注入资源链接(preload/prefetch、manifest、js、css)
+- 默认使用` @vue/preload-webpack-plugin`对link资源preload、prefetch
+  - preload: vue cli会为所有初始化渲染需要的资源文件在link标签上自动注入preload
+  - prefetch: vue cli会为所有作为async chunk生成的js文件(通过动态import()按需code splitting的产物)自动注入prefetch
+- 默认小于8KIB的图片资源会被内联(base64)，以减小HTTP请求的数量，同时也会使得文件略微变大(图片转base64后占据空间更大)
+- 静态资源的处理
+  - 在JS、CSS、*.vue文件中通过相对路径被引用，这类引用会被webpack处理
+    - 如果URL 是一个绝对路径 (例如 `/images/foo.png`)，它将会被保留不变
+    - 如果 URL 以 `.` 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析
+    - 如果 URL 以 `~` 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源
+    - 如果 URL 以 `@` 开头，它也会作为一个模块请求被解析。它的用处在于 Vue CLI 默认会设置一个指向 `<projectRoot>/src` 的别名 `@`。**(仅作用于模版中)**
+  - public文件夹
+    - 任何放置在 `public` 文件夹的静态资源都会被简单的复制，而不经过 webpack。你需要通过绝对路径来引用它们
+- 默认支持PostCSS、CSS Modules和包含Sass、Less、Stylus在内的预处理器
+  - PostCSS: 可以通过`.postcssrc`文件或`vue.config.js`中的`css.loaderOptions.postcss`配置
+  - CSS Modules：scoped技术，给css限定作用域
+  - CSS及预处理器相关，可以通过`vue.config.js`中的`css.loaderOptions`配置
+- 配置webpack
+  - configureWebpack（Object | Function）
+    - 会被`webpack-merge`合并入最终的webpack配置，通常用于修改一些基础配置、引入插件等
+    - 一些基础值不能直接修改，如你应该修改 `vue.config.js` 中的 `outputDir` 选项而不是修改 `output.path`；你应该修改 `vue.config.js` 中的 `publicPath` 选项而不是修改 `output.publicPath`
+  - chainWebpack（Function）
+    - vue cli内部的webpack配置是通过`webapck-chain`维护的
+    - 通常用于增加、删除、修改、替换loader，修改plugin选项等
+- 模式和环境变量
+  - 模式
+    - `development`模式用于`vue-cli-service serve`
+    - `test`模式用于`vue-cli-service test:unit`
+    - `production`模式用于`vue-cli-service build`和`vue-cli-service test:e2e`
+  - 环境变量
+    - 始终可用，且可以再public/index.html中以HTML插值的方式使用
+      - VUE_APP_*：可以在vue.config.js中被赋值
+      - NODE_ENV：`development|test|production`，取决于模式
+      - BASE_URL：等于vue.config.js中的publicPath
+    - 仅vue.config.js中可用
+      - 除以上三种外
+    - 注意
+      - 环境变量不能直接在template中以process.env.*使用，要先赋值给变量再使用(template不认识process)
+- 代码热更新
+- 自动清除上次构建生成的内容
+- ...
+
+### 2、@vue/cli 5.x还可以做哪些优化？
+
+
+
+
+
+##  二、详细介绍
 
 ### 1、基础内容
 
