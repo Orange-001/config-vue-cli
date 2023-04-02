@@ -54,7 +54,7 @@
             loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
             options: {
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\vue-loader',
-              cacheIdentifier: '21bb7ed4',
+              cacheIdentifier: 'd8ed506c',
               babelParserPlugins: [
                 'jsx',
                 'classProperties',
@@ -1018,7 +1018,7 @@
             options: {
               cacheCompression: false,
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\babel-loader',
-              cacheIdentifier: '7c0abd2d'
+              cacheIdentifier: '5c850d94'
             }
           }
         ]
@@ -1159,14 +1159,25 @@
         ],
         cwd: 'E:\\FRONT_END_CODE\\config-vue-cli',
         cache: true,
-        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\a6c488aa.json',
+        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\6e6ec4a1.json',
         context: 'E:\\FRONT_END_CODE\\config-vue-cli',
         failOnWarning: false,
         failOnError: true,
         eslintPath: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\eslint',
         formatter: 'stylish'
       }
-    )
+    ),
+    {
+      profile: false,
+      handler: undefined,
+      modulesCount: 5000,
+      dependenciesCount: 10000,
+      showEntries: true,
+      showModules: true,
+      showDependencies: true,
+      showActiveModules: true,
+      percentBy: undefined
+    }
   ],
   entry: {
     app: [

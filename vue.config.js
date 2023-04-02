@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); // 测量构建速度
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化查看构建后各个文件大小
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin"); // 压缩图片
+const { ProgressPlugin } = require('webpack');
 module.exports = defineConfig({
   outputDir: 'dist',
   assetsDir: '',
@@ -14,11 +15,21 @@ module.exports = defineConfig({
       allowCollectingMemory: true
     };
 
-    const plugins = [];
+    const plugins = [
+      new ProgressPlugin({
+        activeModules: true, // 默认false，显示活动模块计数和一个活动模块正在进行消息。
+        entries: true, // 默认true，显示正在进行的条目计数消息。
+        modules: true, // 默认true，显示正在进行的模块计数消息。
+        modulesCount: 5000, // 默认5000，开始时的最小模块数。PS:modules启用属性时生效。
+        profile: false, // 默认false，告诉ProgressPlugin为进度步骤收集配置文件数据。
+        dependencies: true, // 默认true，显示正在进行的依赖项计数消息。
+        dependenciesCount: 10000 // 默认10000，开始时的最小依赖项计数。PS:dependencies启用属性时生效
+      })
+    ];
     if (process.env.NODE_ENV === 'production') { // 生产
-      config.plugins.push(
+      plugins.push(
         // new SpeedMeasurePlugin(),
-        // new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin(),
       );
     } else { // 开发
       // plugins = [new MyAwesomeWebpackPlugin2()]
