@@ -1,5 +1,7 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png"/>
+  <img alt="Vue logo" src="./assets/image-20230402161741215.png"/>
+  <!-- test: 这是注释 -->
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 

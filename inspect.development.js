@@ -54,7 +54,7 @@
             loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
             options: {
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\vue-loader',
-              cacheIdentifier: '03032082',
+              cacheIdentifier: '21bb7ed4',
               babelParserPlugins: [
                 'jsx',
                 'classProperties',
@@ -113,11 +113,6 @@
         type: 'asset',
         generator: {
           filename: 'img/[name].[hash:8][ext]'
-        },
-        parser: {
-          dataUrlCondition: {
-            maxSize: 4096
-          }
         }
       },
       /* config.module.rule('media') */
@@ -1023,7 +1018,7 @@
             options: {
               cacheCompression: false,
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\babel-loader',
-              cacheIdentifier: '61403479'
+              cacheIdentifier: '7c0abd2d'
             }
           }
         ]
@@ -1164,7 +1159,7 @@
         ],
         cwd: 'E:\\FRONT_END_CODE\\config-vue-cli',
         cache: true,
-        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\1a7887ea.json',
+        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\a6c488aa.json',
         context: 'E:\\FRONT_END_CODE\\config-vue-cli',
         failOnWarning: false,
         failOnError: true,
@@ -1177,5 +1172,9 @@
     app: [
       './src/main.js'
     ]
+  },
+  cache: {
+    type: 'filesystem',
+    allowCollectingMemory: true
   }
 }

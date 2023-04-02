@@ -55,7 +55,7 @@
             loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
             options: {
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\vue-loader',
-              cacheIdentifier: '50363711',
+              cacheIdentifier: '8daebf16',
               babelParserPlugins: [
                 'jsx',
                 'classProperties',
@@ -1004,7 +1004,7 @@
             options: {
               cacheCompression: false,
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\babel-loader',
-              cacheIdentifier: '4d0533fc'
+              cacheIdentifier: '74acdac1'
             }
           }
         ]
@@ -1058,10 +1058,15 @@
               unused: true,
               conditionals: true,
               dead_code: true,
-              evaluate: true
+              evaluate: true,
+              drop_console: true,
+              drop_debugger: true
             },
             mangle: {
               safari10: true
+            },
+            format: {
+              comments: /@license/i
             }
           },
           parallel: true,
@@ -1080,6 +1085,60 @@
                 cssDeclarationSorter: false
               }
             ]
+          }
+        }
+      ),
+      /* config.optimization.minimizer('image-minizer') */
+      new ImageMinimizerPlugin(
+        {
+          minimizer: {
+            implementation: function () { /* omitted long function */ },
+            options: {
+              plugins: [
+                [
+                  'gifsicle',
+                  {
+                    interlaced: true
+                  }
+                ],
+                [
+                  'jpegtran',
+                  {
+                    progressive: true
+                  }
+                ],
+                [
+                  'optipng',
+                  {
+                    optimizationLevel: 5
+                  }
+                ],
+                [
+                  'svgo',
+                  {
+                    plugins: [
+                      {
+                        name: 'preset-default',
+                        params: {
+                          overrides: {
+                            removeViewBox: false,
+                            addAttributesToSVGElement: {
+                              params: {
+                                attributes: [
+                                  {
+                                    xmlns: 'http://www.w3.org/2000/svg'
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              ]
+            }
           }
         }
       )
@@ -1167,7 +1226,7 @@
         ],
         cwd: 'E:\\FRONT_END_CODE\\config-vue-cli',
         cache: true,
-        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\15492702.json',
+        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\6a2706c1.json',
         context: 'E:\\FRONT_END_CODE\\config-vue-cli',
         failOnWarning: false,
         failOnError: true,
@@ -1180,5 +1239,9 @@
     app: [
       './src/main.js'
     ]
+  },
+  cache: {
+    type: 'filesystem',
+    allowCollectingMemory: true
   }
 }

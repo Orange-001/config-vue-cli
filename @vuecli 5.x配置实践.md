@@ -54,11 +54,203 @@
 
 ### 2、@vue/cli 5.x还可以做哪些优化？
 
-#### 开发优化
+- 分析工具
 
+  - `speed-measure-webpack-plugin`
 
+    - 功能：测量构建速度，输出各个模板编译时长
 
-#### 生产优化
+    - 配置：
+
+      ```js
+      npm install speed-measure-webpack-plugin --save-dev
+      ```
+
+      ```js
+      const { defineConfig } = require('@vue/cli-service');
+      const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+      module.exports = defineConfig({
+        ...,
+        configureWebpack: (config) => {
+            ...
+            config.plugins.push(
+              new SpeedMeasurePlugin(),
+            );
+          },
+      });
+      ```
+
+    - 结果
+
+      ![image-20230402160715575](./@vuecli 5.x配置实践.assets/image-20230402160715575.png)
+
+  - `webpack-bundle-analyzer`
+
+    - 功能：可视化展示构建后各个包的大小
+
+    - 配置：
+
+      ```js
+      npm install webpack-bundle-analyzer --save-dev
+      ```
+
+      ```js
+      const { defineConfig } = require('@vue/cli-service');
+      const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+      module.exports = defineConfig({
+        ...,
+        configureWebpack: (config) => {
+            ...
+            config.plugins.push(
+            	new BundleAnalyzerPlugin()
+            );
+          },
+      });
+      ```
+
+    - 结果
+
+      ![image-20230402161741215](./@vuecli 5.x配置实践.assets/image-20230402161741215.png)
+
+- 构建优化
+
+  - `thread-loader`多线程优化
+
+    - vue cli默认为Babel/TypeScript转译开启，不需要额外配置
+    - 注：thread-loader的启用开销为只600ms左右，最好只针对耗时操作启用。
+
+  - 缓存优化
+
+    - webpack缓存方式介绍
+
+      - `cache`配置项(webpack5.x)
+
+        ```js
+        const { defineConfig } = require('@vue/cli-service');
+        module.exports = defineConfig({
+          ...,
+          configureWebpack: (config) => {
+        	// 缓存生成的 webpack 模块和 chunk，来改善构建速度
+            config.cache = {
+            	type: 'filesystem',
+            	allowCollectingMemory: true
+            };
+          }
+        });
+        ```
+
+      - 下面几种缓存方式都有首次启动时的开销，即它们会让 "冷启动" 时间会更长，但是二次启动能够节省很多时间
+
+        - `cache-loader`
+        - `hard-source-webpack-plugin`（vue/cli使用的是webpack5，不可用）
+        - `babel-loader`的`cacheDirectory`选项
+        - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
+
+- 生产优化
+
+  - 减少js代码体积
+
+    - 删除console、debugger、注释
+
+      ```js
+      const { defineConfig } = require('@vue/cli-service');
+      module.exports = defineConfig({
+      	...,
+      	chainWebpack: config => {
+          	if (process.env.NODE_ENV === 'production') { // 生产
+                  // 删除console、debugger、注释
+                  const terser = config.optimization.minimizer('terser');
+                  terser.tap(args => {
+                    const { terserOptions } = args[0];
+                    Object.assign(
+                      terserOptions,
+                      {
+                        compress: {
+                          ...terserOptions.compress,
+                          drop_console: true,
+                          drop_debugger: true
+                        },
+                        format: {
+                          comments: /@license/i
+                        }
+                      }
+                    );
+                    return args;
+                  });
+      		}
+          }
+      });
+      ```
+
+  - 压缩图片资源
+
+    - `image-minimizer-webpack-plugin`
+
+      - 配置
+
+        ```js
+        npm install image-minimizer-webpack-plugin imagemin @squoosh/lib --save-dev
+        npm install imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --save-dev
+        ```
+
+        ```js
+        const { defineConfig } = require('@vue/cli-service');
+        const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+        module.exports = defineConfig({
+            ...,
+            chainWebpack： config => {
+            	if (process.env.NODE_ENV === 'production') { // 生产
+                    const optimization = config.optimization;
+                    // 压缩图片
+                    const imageMinizer = optimization.minimizer('image-minizer');
+                    imageMinizer.use(ImageMinimizerPlugin, [{
+                      minimizer: {
+                        implementation: ImageMinimizerPlugin.imageminMinify,
+                        options: {
+                          // Lossless optimization with custom option
+                          // Feel free to experiment with options for better result for you
+                          plugins: [
+                            ["gifsicle", { interlaced: true }],
+                            ["jpegtran", { progressive: true }],
+                            ["optipng", { optimizationLevel: 5 }],
+                            // Svgo configuration here https://github.com/svg/svgo#configuration
+                            [
+                              "svgo",
+                              {
+                                plugins: [
+                                  {
+                                    name: "preset-default",
+                                    params: {
+                                      overrides: {
+                                        removeViewBox: false,
+                                        addAttributesToSVGElement: {
+                                          params: {
+                                            attributes: [
+                                              { xmlns: "http://www.w3.org/2000/svg" }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    }]);
+        		}
+        	}
+        });
+        ```
+
+      - 注：webpack5官网配置有误，上面是该依赖的git仓库提供的配置
+
+  - `dll`动态链接库
+
+    - 自webpack4起已过时，vue-cli也已移除dll，同时也不推荐使用。因为webpack4有着比dll更好的打包性能。在webpack4推荐使用`hard-source-webpack-plugin`，然而这个在webpack5中也过时了，使用cache配置项爆杀上述两个。
+    - vue issue [RFC: beta.10, Upgrading to webpack 4 + vue-loader 15 · Issue #1205 · vuejs/vue-cli (github.com)](https://github.com/vuejs/vue-cli/issues/1205)
 
 
 
@@ -88,7 +280,7 @@
 
 ### 1）目录
 
-![1679930857056](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1679930857056.png)
+![image-20230402160817661](./@vuecli 5.x配置实践.assets/image-20230402160817661.png)
 
 2）package.json
 
@@ -244,7 +436,7 @@ module.exports = {
 
 ​	当运行 `vue-cli-service` 命令时，所有的环境变量都从对应的[环境文件](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)中载入。共有development、test、production三种模式。[模式和环境变量 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/mode-and-env.html#%E6%A8%A1%E5%BC%8F)
 
-![1680095590880](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1680095590880.png)
+![image-20230402160842568](./@vuecli 5.x配置实践.assets/image-20230402160842568.png)
 
 ​	在代码中始终可用的环境变量
 
@@ -264,7 +456,7 @@ module.exports = {
 
 ​	应用：
 
-​		![1680101089884](C:\Users\柯传佳\AppData\Roaming\Typora\typora-user-images\1680101089884.png)
+​		![image-20230402160909514](./@vuecli 5.x配置实践.assets/image-20230402160909514.png)
 
 ​	库
 
