@@ -1,7 +1,7 @@
 {
   mode: 'production',
   context: 'E:\\FRONT_END_CODE\\config-vue-cli',
-  devtool: 'source-map',
+  devtool: false,
   output: {
     hashFunction: 'xxhash64',
     path: 'E:\\FRONT_END_CODE\\config-vue-cli\\dist',
@@ -55,7 +55,7 @@
             loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
             options: {
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\vue-loader',
-              cacheIdentifier: '4669c4c8',
+              cacheIdentifier: '50363711',
               babelParserPlugins: [
                 'jsx',
                 'classProperties',
@@ -1004,7 +1004,7 @@
             options: {
               cacheCompression: false,
               cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\babel-loader',
-              cacheIdentifier: 'cc1bad4a'
+              cacheIdentifier: '4d0533fc'
             }
           }
         ]
@@ -1100,6 +1100,8 @@
       {
         'process.env': {
           NODE_ENV: '"production"',
+          VUE_APP_ALL: '"ALL"',
+          VUE_APP_PRO: '"PRO"',
           BASE_URL: '"/"'
         }
       }
@@ -1165,7 +1167,7 @@
         ],
         cwd: 'E:\\FRONT_END_CODE\\config-vue-cli',
         cache: true,
-        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\728bfa24.json',
+        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\15492702.json',
         context: 'E:\\FRONT_END_CODE\\config-vue-cli',
         failOnWarning: false,
         failOnError: true,

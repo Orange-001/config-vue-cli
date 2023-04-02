@@ -46,13 +46,19 @@
       - 除以上三种外
     - 注意
       - 环境变量不能直接在template中以process.env.*使用，要先赋值给变量再使用(template不认识process)
+- 默认使用`mini-css-extract-plugin`提取css成单独文件
+- 默认使用`css-minimizer-webpack-plugin`压缩css代码(webpack在生产模式下自动压缩js、html)
 - 代码热更新
 - 自动清除上次构建生成的内容
 - ...
 
 ### 2、@vue/cli 5.x还可以做哪些优化？
 
+#### 开发优化
 
+
+
+#### 生产优化
 
 
 
