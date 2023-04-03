@@ -4,7 +4,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin"); // 压缩图片
 const { ProgressPlugin } = require('webpack'); // 进度条
 const CompressionPlugin = require("compression-webpack-plugin"); // Gzip压缩
-// const StylelintPlugin = require('stylelint-webpack-plugin'); // 样式lint
 module.exports = defineConfig({
   outputDir: 'dist',
   assetsDir: '',
@@ -27,7 +26,6 @@ module.exports = defineConfig({
         dependencies: true, // 默认true，显示正在进行的依赖项计数消息。
         dependenciesCount: 10000 // 默认10000，开始时的最小依赖项计数。PS:dependencies启用属性时生效
       })
-      // new StylelintPlugin()
     ];
     if (process.env.NODE_ENV === 'production') { // 生产
       plugins.push(
