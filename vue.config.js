@@ -2,7 +2,9 @@ const { defineConfig } = require('@vue/cli-service');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); // 测量构建速度
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 可视化查看构建后各个文件大小
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin"); // 压缩图片
-const { ProgressPlugin } = require('webpack');
+const { ProgressPlugin } = require('webpack'); // 进度条
+const CompressionPlugin = require("compression-webpack-plugin"); // Gzip压缩
+// const StylelintPlugin = require('stylelint-webpack-plugin'); // 样式lint
 module.exports = defineConfig({
   outputDir: 'dist',
   assetsDir: '',
@@ -25,11 +27,20 @@ module.exports = defineConfig({
         dependencies: true, // 默认true，显示正在进行的依赖项计数消息。
         dependenciesCount: 10000 // 默认10000，开始时的最小依赖项计数。PS:dependencies启用属性时生效
       })
+      // new StylelintPlugin()
     ];
     if (process.env.NODE_ENV === 'production') { // 生产
       plugins.push(
         // new SpeedMeasurePlugin(),
         // new BundleAnalyzerPlugin(),
+        new CompressionPlugin({
+          test: /\.(js|css|json|html)(\?.*)?$/i,
+          filename: '[path].gz[query]', // 压缩后的文件名
+          algorithm: 'gzip',
+          threshold: 10240, // 仅处理大于此大小的资产（以字节为单位）
+          minRatio: 0.8, // 仅压缩比该比率更好的资产（minRatio = Compressed Size / Original Size）
+          deleteOriginalAssets: false // 是否删除原始文件
+        })
       );
     } else { // 开发
       // plugins = [new MyAwesomeWebpackPlugin2()]

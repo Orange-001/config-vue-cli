@@ -54,233 +54,286 @@
 
 ### 2、@vue/cli 5.x还可以做哪些优化？
 
-- 分析工具
+#### 分析工具
 
-  - `speed-measure-webpack-plugin`
+##### 分析编译时长`speed-measure-webpack-plugin`
 
-    - 功能：测量构建速度，输出各个模板编译时长
+- 功能：测量构建速度，输出各个模板编译时长
 
-    - 配置：
+- 配置：
 
-      ```js
-      npm install speed-measure-webpack-plugin --save-dev
-      ```
+  ```js
+  npm install speed-measure-webpack-plugin --save-dev
+  ```
+
+  ```js
+  const { defineConfig } = require('@vue/cli-service');
+  const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+  module.exports = defineConfig({
+    ...,
+    configureWebpack: (config) => {
+        ...
+        config.plugins.push(
+          new SpeedMeasurePlugin(),
+        );
+      },
+  });
+  ```
+
+- 结果
+
+  ![image-20230402160715575](./@vuecli 5.x配置实践.assets/image-20230402160715575.png)
+
+##### 分析模块大小`webpack-bundle-analyzer`
+
+- 功能：可视化展示构建后各个包的大小
+
+- 配置：
+
+  ```js
+  npm install webpack-bundle-analyzer --save-dev
+  ```
+
+  ```js
+  const { defineConfig } = require('@vue/cli-service');
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  module.exports = defineConfig({
+    ...,
+    configureWebpack: (config) => {
+        ...
+        config.plugins.push(
+        	new BundleAnalyzerPlugin()
+        );
+      },
+  });
+  ```
+
+- 结果
+
+  ![image-20230402161741215](./@vuecli 5.x配置实践.assets/image-20230402161741215.png)
+
+#### 构建优化
+
+##### 多线程优化`thread-loader`
+
+- vue cli默认为Babel/TypeScript转译开启，不需要额外配置
+- 注：thread-loader的启用开销为只600ms左右，最好只针对耗时操作启用。
+
+- 缓存优化
+
+  - webpack缓存方式介绍
+
+    - `cache`配置项(webpack5.x)
 
       ```js
       const { defineConfig } = require('@vue/cli-service');
-      const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
       module.exports = defineConfig({
         ...,
         configureWebpack: (config) => {
-            ...
-            config.plugins.push(
-              new SpeedMeasurePlugin(),
-            );
-          },
+      	// 缓存生成的 webpack 模块和 chunk，来改善构建速度
+          config.cache = {
+          	type: 'filesystem',
+          	allowCollectingMemory: true
+          };
+        }
       });
       ```
 
-    - 结果
+    - 下面几种缓存方式都有首次启动时的开销，即它们会让 "冷启动" 时间会更长，但是二次启动能够节省很多时间
 
-      ![image-20230402160715575](./@vuecli 5.x配置实践.assets/image-20230402160715575.png)
+      - `cache-loader`
+      - `hard-source-webpack-plugin`（vue/cli使用的是webpack5，不可用）
+      - `babel-loader`的`cacheDirectory`选项
+      - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
 
-  - `webpack-bundle-analyzer`
+##### 构建进度条
 
-    - 功能：可视化展示构建后各个包的大小
+- ProgressPlugin
 
-    - 配置：
+  - 配置
 
-      ```js
-      npm install webpack-bundle-analyzer --save-dev
-      ```
-
-      ```js
-      const { defineConfig } = require('@vue/cli-service');
-      const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-      module.exports = defineConfig({
-        ...,
-        configureWebpack: (config) => {
-            ...
-            config.plugins.push(
-            	new BundleAnalyzerPlugin()
-            );
-          },
-      });
-      ```
-
-    - 结果
-
-      ![image-20230402161741215](./@vuecli 5.x配置实践.assets/image-20230402161741215.png)
-
-- 构建优化
-
-  - `thread-loader`多线程优化
-
-    - vue cli默认为Babel/TypeScript转译开启，不需要额外配置
-    - 注：thread-loader的启用开销为只600ms左右，最好只针对耗时操作启用。
-
-  - 缓存优化
-
-    - webpack缓存方式介绍
-
-      - `cache`配置项(webpack5.x)
-
-        ```js
-        const { defineConfig } = require('@vue/cli-service');
-        module.exports = defineConfig({
-          ...,
-          configureWebpack: (config) => {
-        	// 缓存生成的 webpack 模块和 chunk，来改善构建速度
-            config.cache = {
-            	type: 'filesystem',
-            	allowCollectingMemory: true
+    ```js
+    const { ProgressPlugin } = require('webpack');
+    module.exports = defineConfig({
+        configureWebpack: config => {
+          	const plugins = [
+              new ProgressPlugin({
+                activeModules: true, // 默认false，显示活动模块计数和一个活动模块正在进行消息。
+                entries: true, // 默认true，显示正在进行的条目计数消息。
+                modules: true, // 默认true，显示正在进行的模块计数消息。
+                modulesCount: 5000, // 默认5000，开始时的最小模块数。PS:modules启用属性时生效。
+                profile: false, // 默认false，告诉ProgressPlugin为进度步骤收集配置文件数据。
+                dependencies: true, // 默认true，显示正在进行的依赖项计数消息。
+                dependenciesCount: 10000 // 默认10000，开始时的最小依赖项计数。PS:dependencies启用属性时生效
+              })
+            ];
+            return {
+              plugins
             };
-          }
-        });
-        ```
+        }
+    });
+    ```
 
-      - 下面几种缓存方式都有首次启动时的开销，即它们会让 "冷启动" 时间会更长，但是二次启动能够节省很多时间
+  - webpackbar
 
-        - `cache-loader`
-        - `hard-source-webpack-plugin`（vue/cli使用的是webpack5，不可用）
-        - `babel-loader`的`cacheDirectory`选项
-        - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
+#### 生产优化
 
-  - 构建进度条
+##### 减少js代码体积
 
-    - ProgressPlugin
+- 删除console、debugger、注释
 
-      - 配置
+  ```js
+  const { defineConfig } = require('@vue/cli-service');
+  module.exports = defineConfig({
+  	...,
+  	chainWebpack: config => {
+      	if (process.env.NODE_ENV === 'production') { // 生产
+              // 删除console、debugger、注释
+              const terser = config.optimization.minimizer('terser');
+              terser.tap(args => {
+                const { terserOptions } = args[0];
+                Object.assign(
+                  terserOptions,
+                  {
+                    compress: {
+                      ...terserOptions.compress,
+                      drop_console: true,
+                      drop_debugger: true
+                    },
+                    format: {
+                      comments: /@license/i
+                    }
+                  }
+                );
+                return args;
+              });
+  		}
+      }
+  });
+  ```
 
-        ```js
-        const { ProgressPlugin } = require('webpack');
-        module.exports = defineConfig({
-            configureWebpack: config => {
-              	const plugins = [
-                  new ProgressPlugin({
-                    activeModules: true, // 默认false，显示活动模块计数和一个活动模块正在进行消息。
-                    entries: true, // 默认true，显示正在进行的条目计数消息。
-                    modules: true, // 默认true，显示正在进行的模块计数消息。
-                    modulesCount: 5000, // 默认5000，开始时的最小模块数。PS:modules启用属性时生效。
-                    profile: false, // 默认false，告诉ProgressPlugin为进度步骤收集配置文件数据。
-                    dependencies: true, // 默认true，显示正在进行的依赖项计数消息。
-                    dependenciesCount: 10000 // 默认10000，开始时的最小依赖项计数。PS:dependencies启用属性时生效
-                  })
-                ];
-                return {
-                  plugins
-                };
-            }
-        });
-        ```
+##### 压缩图片资源
 
-    - webpackbar
+- `image-minimizer-webpack-plugin`
 
-- 生产优化
+  - 配置
 
-  - 减少js代码体积
+    ```js
+    npm install image-minimizer-webpack-plugin imagemin @squoosh/lib --save-dev
+    npm install imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --save-dev
+    ```
 
-    - 删除console、debugger、注释
-
-      ```js
-      const { defineConfig } = require('@vue/cli-service');
-      module.exports = defineConfig({
-      	...,
-      	chainWebpack: config => {
-          	if (process.env.NODE_ENV === 'production') { // 生产
-                  // 删除console、debugger、注释
-                  const terser = config.optimization.minimizer('terser');
-                  terser.tap(args => {
-                    const { terserOptions } = args[0];
-                    Object.assign(
-                      terserOptions,
-                      {
-                        compress: {
-                          ...terserOptions.compress,
-                          drop_console: true,
-                          drop_debugger: true
-                        },
-                        format: {
-                          comments: /@license/i
-                        }
-                      }
-                    );
-                    return args;
-                  });
-      		}
-          }
-      });
-      ```
-
-  - 压缩图片资源
-
-    - `image-minimizer-webpack-plugin`
-
-      - 配置
-
-        ```js
-        npm install image-minimizer-webpack-plugin imagemin @squoosh/lib --save-dev
-        npm install imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --save-dev
-        ```
-
-        ```js
-        const { defineConfig } = require('@vue/cli-service');
-        const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-        module.exports = defineConfig({
-            ...,
-            chainWebpack： config => {
-            	if (process.env.NODE_ENV === 'production') { // 生产
-                    const optimization = config.optimization;
-                    // 压缩图片
-                    const imageMinizer = optimization.minimizer('image-minizer');
-                    imageMinizer.use(ImageMinimizerPlugin, [{
-                      minimizer: {
-                        implementation: ImageMinimizerPlugin.imageminMinify,
-                        options: {
-                          // Lossless optimization with custom option
-                          // Feel free to experiment with options for better result for you
-                          plugins: [
-                            ["gifsicle", { interlaced: true }],
-                            ["jpegtran", { progressive: true }],
-                            ["optipng", { optimizationLevel: 5 }],
-                            // Svgo configuration here https://github.com/svg/svgo#configuration
-                            [
-                              "svgo",
+    ```js
+    const { defineConfig } = require('@vue/cli-service');
+    const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+    module.exports = defineConfig({
+        ...,
+        chainWebpack： config => {
+        	if (process.env.NODE_ENV === 'production') { // 生产
+                const optimization = config.optimization;
+                // 压缩图片
+                const imageMinizer = optimization.minimizer('image-minizer');
+                imageMinizer.use(ImageMinimizerPlugin, [{
+                  minimizer: {
+                    implementation: ImageMinimizerPlugin.imageminMinify,
+                    options: {
+                      // Lossless optimization with custom option
+                      // Feel free to experiment with options for better result for you
+                      plugins: [
+                        ["gifsicle", { interlaced: true }],
+                        ["jpegtran", { progressive: true }],
+                        ["optipng", { optimizationLevel: 5 }],
+                        // Svgo configuration here https://github.com/svg/svgo#configuration
+                        [
+                          "svgo",
+                          {
+                            plugins: [
                               {
-                                plugins: [
-                                  {
-                                    name: "preset-default",
-                                    params: {
-                                      overrides: {
-                                        removeViewBox: false,
-                                        addAttributesToSVGElement: {
-                                          params: {
-                                            attributes: [
-                                              { xmlns: "http://www.w3.org/2000/svg" }
-                                            ]
-                                          }
-                                        }
+                                name: "preset-default",
+                                params: {
+                                  overrides: {
+                                    removeViewBox: false,
+                                    addAttributesToSVGElement: {
+                                      params: {
+                                        attributes: [
+                                          { xmlns: "http://www.w3.org/2000/svg" }
+                                        ]
                                       }
                                     }
                                   }
-                                ]
+                                }
                               }
                             ]
-                          ]
-                        }
-                      }
-                    }]);
-        		}
-        	}
-        });
-        ```
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }]);
+    		}
+    	}
+    });
+    ```
 
-      - 注：webpack5官网配置有误，上面是该依赖的git仓库提供的配置
+  - 注：webpack5官网配置有误，上面是该依赖的git仓库提供的配置
 
-  - `dll`动态链接库
+##### `dll`动态链接库
 
-    - 自webpack4起已过时，vue-cli也已移除dll，同时也不推荐使用。因为webpack4有着比dll更好的打包性能。在webpack4推荐使用`hard-source-webpack-plugin`，然而这个在webpack5中也过时了，使用cache配置项爆杀上述两个。
-    - vue issue [RFC: beta.10, Upgrading to webpack 4 + vue-loader 15 · Issue #1205 · vuejs/vue-cli (github.com)](https://github.com/vuejs/vue-cli/issues/1205)
+- 自webpack4起已过时，vue-cli也已移除dll，同时也不推荐使用。因为webpack4有着比dll更好的打包性能。在webpack4推荐使用`hard-source-webpack-plugin`，然而这个在webpack5中也过时了，使用cache配置项爆杀上述两个。
+- vue issue [RFC: beta.10, Upgrading to webpack 4 + vue-loader 15 · Issue #1205 · vuejs/vue-cli (github.com)](https://github.com/vuejs/vue-cli/issues/1205)
+
+##### 启用gzip压缩文件
+
+- 配置
+
+  `vue.config.js`开启gzip静态压缩
+
+  ```js
+  const CompressionPlugin = require("compression-webpack-plugin");
+  module.exports = defineConfig({
+      configureWebpack: config => {
+          const plugins = [];
+        	if (process.env.NODE_ENV === 'production') { // 生产
+            plugins.push(
+              // new SpeedMeasurePlugin(),
+              // new BundleAnalyzerPlugin(),
+              new CompressionPlugin({
+                test: /\.(js|css|json|html)(\?.*)?$/i,
+                filename: '[path].gz[query]', // 压缩后的文件名
+                algorithm: 'gzip',
+                threshold: 10240, // 仅处理大于此大小的资产（以字节为单位）
+                minRatio: 0.8, // 仅压缩比该比率更好的资产（minRatio = Compressed Size / Original Size）
+                deleteOriginalAssets: false // 是否删除原始文件
+              })
+            );
+          }
+          return {
+            plugins
+          };
+      }
+  });
+  ```
+
+  `nginx.conf`文件配置
+
+  ```nginx
+  server{
+  	...
+  	# 开启Gzip压缩：若没有找到.gz，会动态压缩，因此建议前端打包成.gz文件
+      gzip on;
+      gzip_min_length 1k;
+      gzip_buffers 4 16k;
+      gzip_comp_level 5;
+      gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+      gzip_http_version 1.1;
+      gzip_vary on;
+      gzip_disable "MSIE [1-6]\.";
+  }
+  ```
+
+##### 样式风格检查stylelint
+
+
 
 
 

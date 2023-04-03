@@ -1,17 +1,17 @@
 {
   mode: 'production',
-  context: 'E:\\FRONT_END_CODE\\config-vue-cli',
+  context: 'D:\\Code\\_MY\\config-vue-cli',
   devtool: false,
   output: {
     hashFunction: 'xxhash64',
-    path: 'E:\\FRONT_END_CODE\\config-vue-cli\\dist',
+    path: 'D:\\Code\\_MY\\config-vue-cli\\dist',
     filename: 'js/[name].[contenthash:8].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[contenthash:8].js'
   },
   resolve: {
     alias: {
-      '@': 'E:\\FRONT_END_CODE\\config-vue-cli\\src',
+      '@': 'D:\\Code\\_MY\\config-vue-cli\\src',
       vue$: 'vue/dist/vue.runtime.esm-bundler.js'
     },
     extensions: [
@@ -24,16 +24,16 @@
     ],
     modules: [
       'node_modules',
-      'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules',
-      'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\@vue\\cli-service\\node_modules'
+      'D:\\Code\\_MY\\config-vue-cli\\node_modules',
+      'D:\\Code\\_MY\\config-vue-cli\\node_modules\\@vue\\cli-service\\node_modules'
     ]
   },
   resolveLoader: {
     modules: [
-      'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\@vue\\cli-plugin-babel\\node_modules',
+      'D:\\Code\\_MY\\config-vue-cli\\node_modules\\@vue\\cli-plugin-babel\\node_modules',
       'node_modules',
-      'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules',
-      'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\@vue\\cli-service\\node_modules'
+      'D:\\Code\\_MY\\config-vue-cli\\node_modules',
+      'D:\\Code\\_MY\\config-vue-cli\\node_modules\\@vue\\cli-service\\node_modules'
     ]
   },
   module: {
@@ -52,10 +52,10 @@
         use: [
           /* config.module.rule('vue').use('vue-loader') */
           {
-            loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
+            loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\vue-loader\\dist\\index.js',
             options: {
-              cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\vue-loader',
-              cacheIdentifier: '60d1dd8e',
+              cacheDirectory: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\.cache\\vue-loader',
+              cacheIdentifier: 'c55fb894',
               babelParserPlugins: [
                 'jsx',
                 'classProperties',
@@ -147,14 +147,14 @@
             use: [
               /* config.module.rule('css').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('css').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -166,7 +166,7 @@
               },
               /* config.module.rule('css').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -179,14 +179,14 @@
             use: [
               /* config.module.rule('css').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('css').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -194,7 +194,7 @@
               },
               /* config.module.rule('css').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -207,14 +207,14 @@
             use: [
               /* config.module.rule('css').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('css').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -222,7 +222,7 @@
               },
               /* config.module.rule('css').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -234,14 +234,14 @@
             use: [
               /* config.module.rule('css').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('css').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -249,7 +249,7 @@
               },
               /* config.module.rule('css').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -268,14 +268,14 @@
             use: [
               /* config.module.rule('postcss').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('postcss').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -287,7 +287,7 @@
               },
               /* config.module.rule('postcss').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -300,14 +300,14 @@
             use: [
               /* config.module.rule('postcss').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('postcss').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -315,7 +315,7 @@
               },
               /* config.module.rule('postcss').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -328,14 +328,14 @@
             use: [
               /* config.module.rule('postcss').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('postcss').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -343,7 +343,7 @@
               },
               /* config.module.rule('postcss').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -355,14 +355,14 @@
             use: [
               /* config.module.rule('postcss').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('postcss').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -370,7 +370,7 @@
               },
               /* config.module.rule('postcss').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -389,14 +389,14 @@
             use: [
               /* config.module.rule('scss').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('scss').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -408,7 +408,7 @@
               },
               /* config.module.rule('scss').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -428,14 +428,14 @@
             use: [
               /* config.module.rule('scss').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('scss').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -443,7 +443,7 @@
               },
               /* config.module.rule('scss').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -463,14 +463,14 @@
             use: [
               /* config.module.rule('scss').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('scss').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -478,7 +478,7 @@
               },
               /* config.module.rule('scss').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -497,14 +497,14 @@
             use: [
               /* config.module.rule('scss').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('scss').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -512,7 +512,7 @@
               },
               /* config.module.rule('scss').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -538,14 +538,14 @@
             use: [
               /* config.module.rule('sass').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('sass').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -557,7 +557,7 @@
               },
               /* config.module.rule('sass').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -580,14 +580,14 @@
             use: [
               /* config.module.rule('sass').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('sass').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -595,7 +595,7 @@
               },
               /* config.module.rule('sass').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -618,14 +618,14 @@
             use: [
               /* config.module.rule('sass').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('sass').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -633,7 +633,7 @@
               },
               /* config.module.rule('sass').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -655,14 +655,14 @@
             use: [
               /* config.module.rule('sass').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('sass').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -670,7 +670,7 @@
               },
               /* config.module.rule('sass').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -699,14 +699,14 @@
             use: [
               /* config.module.rule('less').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('less').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -718,7 +718,7 @@
               },
               /* config.module.rule('less').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -738,14 +738,14 @@
             use: [
               /* config.module.rule('less').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('less').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -753,7 +753,7 @@
               },
               /* config.module.rule('less').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -773,14 +773,14 @@
             use: [
               /* config.module.rule('less').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('less').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -788,7 +788,7 @@
               },
               /* config.module.rule('less').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -807,14 +807,14 @@
             use: [
               /* config.module.rule('less').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('less').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -822,7 +822,7 @@
               },
               /* config.module.rule('less').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -848,14 +848,14 @@
             use: [
               /* config.module.rule('stylus').oneOf('vue-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('stylus').oneOf('vue-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2,
@@ -867,7 +867,7 @@
               },
               /* config.module.rule('stylus').oneOf('vue-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -887,14 +887,14 @@
             use: [
               /* config.module.rule('stylus').oneOf('vue').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('stylus').oneOf('vue').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -902,7 +902,7 @@
               },
               /* config.module.rule('stylus').oneOf('vue').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -922,14 +922,14 @@
             use: [
               /* config.module.rule('stylus').oneOf('normal-modules').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('stylus').oneOf('normal-modules').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -937,7 +937,7 @@
               },
               /* config.module.rule('stylus').oneOf('normal-modules').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -956,14 +956,14 @@
             use: [
               /* config.module.rule('stylus').oneOf('normal').use('extract-css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\mini-css-extract-plugin\\dist\\loader.js',
                 options: {
                   publicPath: '/'
                 }
               },
               /* config.module.rule('stylus').oneOf('normal').use('css-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\css-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false,
                   importLoaders: 2
@@ -971,7 +971,7 @@
               },
               /* config.module.rule('stylus').oneOf('normal').use('postcss-loader') */
               {
-                loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
+                loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\postcss-loader\\dist\\cjs.js',
                 options: {
                   sourceMap: false
                 }
@@ -996,15 +996,15 @@
         use: [
           /* config.module.rule('js').use('thread-loader') */
           {
-            loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\thread-loader\\dist\\cjs.js'
+            loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\thread-loader\\dist\\cjs.js'
           },
           /* config.module.rule('js').use('babel-loader') */
           {
-            loader: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\babel-loader\\lib\\index.js',
+            loader: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\babel-loader\\lib\\index.js',
             options: {
               cacheCompression: false,
-              cacheDirectory: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\babel-loader',
-              cacheIdentifier: 'febab9b8'
+              cacheDirectory: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\.cache\\babel-loader',
+              cacheIdentifier: '733753c2'
             }
           }
         ]
@@ -1191,7 +1191,7 @@
         title: 'config-vue-cli',
         scriptLoading: 'defer',
         templateParameters: function () { /* omitted long function */ },
-        template: 'E:\\FRONT_END_CODE\\config-vue-cli\\public\\index.html'
+        template: 'D:\\Code\\_MY\\config-vue-cli\\public\\index.html'
       }
     ),
     /* config.plugin('copy') */
@@ -1199,14 +1199,14 @@
       {
         patterns: [
           {
-            from: 'E:\\FRONT_END_CODE\\config-vue-cli\\public',
-            to: 'E:\\FRONT_END_CODE\\config-vue-cli\\dist',
+            from: 'D:\\Code\\_MY\\config-vue-cli\\public',
+            to: 'D:\\Code\\_MY\\config-vue-cli\\dist',
             toType: 'dir',
             noErrorOnMissing: true,
             globOptions: {
               ignore: [
                 '**/.DS_Store',
-                'E:/FRONT_END_CODE/config-vue-cli/public/index.html'
+                'D:/Code/_MY/config-vue-cli/public/index.html'
               ]
             },
             info: {
@@ -1224,13 +1224,13 @@
           '.jsx',
           '.vue'
         ],
-        cwd: 'E:\\FRONT_END_CODE\\config-vue-cli',
+        cwd: 'D:\\Code\\_MY\\config-vue-cli',
         cache: true,
-        cacheLocation: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\.cache\\eslint\\4307e51e.json',
-        context: 'E:\\FRONT_END_CODE\\config-vue-cli',
+        cacheLocation: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\.cache\\eslint\\7e2535da.json',
+        context: 'D:\\Code\\_MY\\config-vue-cli',
         failOnWarning: false,
         failOnError: true,
-        eslintPath: 'E:\\FRONT_END_CODE\\config-vue-cli\\node_modules\\eslint',
+        eslintPath: 'D:\\Code\\_MY\\config-vue-cli\\node_modules\\eslint',
         formatter: 'stylish'
       }
     ),
@@ -1244,6 +1244,22 @@
       showDependencies: true,
       showActiveModules: true,
       percentBy: undefined
+    },
+    {
+      options: {
+        test: /\.(js|css|json|html)(\?.*)?$/i,
+        include: undefined,
+        exclude: undefined,
+        algorithm: 'gzip',
+        compressionOptions: {
+          level: 9
+        },
+        filename: '[path].gz[query]',
+        threshold: 10240,
+        minRatio: 0.8,
+        deleteOriginalAssets: false
+      },
+      algorithm: function () { /* omitted long function */ }
     }
   ],
   entry: {
