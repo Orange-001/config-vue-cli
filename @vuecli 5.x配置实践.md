@@ -1,8 +1,14 @@
-# @vue/cli 5.x的配置实践
+# 一、前言
 
-## 一、汇总
+- 简单介绍
 
-### 1、@vue/cli5.x做了哪些工作？
+​	@vue/cli 5.x是一个交互式的项目脚手架，分为CLI、CLI服务、CLI插件三个独立部分。本文分别从`@vue/cli5.x做了哪些工作？`以及`@vue/cli 5.x还可以做哪些优化？`带你全面了解@vue/cli5.x的工程配置及优化，知其然知其所以然。完整的配置放在GitHub上了，文末自取。
+
+- 开发环境：
+
+​	Node@18.15.0；npm@9.5.0；vue@^3.2.13；@vue/cli 5.0.8
+
+# 二、@vue/cli5.x做了哪些工作？
 
 - 引入Babel转换ES代码，使用`@vue/cli-plugin-babel/preset`预设，默认将`useBuildIns: 'usage'`传递给`babel/preset-env`，这样它会根据代码中出现的语言特性自动按需引入polyfill
 - Vue/Babel/TypeScript编译默认开启cache-loader缓存在`node-modules/.cache`
@@ -52,11 +58,13 @@
 - 自动清除上次构建生成的内容
 - ...
 
-### 2、@vue/cli 5.x还可以做哪些优化？
+# 三、@vue/cli 5.x还可以做哪些优化？
 
-#### 分析工具
+## 1、分析工具
 
-##### 分析编译时长`speed-measure-webpack-plugin`
+### 1）分析编译时长
+
+- 插件：`speed-measure-webpack-plugin`
 
 - 功能：测量构建速度，输出各个模板编译时长
 
@@ -84,7 +92,9 @@
 
   ![image-20230402160715575](./@vuecli 5.x配置实践.assets/image-20230402160715575.png)
 
-##### 分析模块大小`webpack-bundle-analyzer`
+### 2）分析模块大小
+
+- 插件：`webpack-bundle-analyzer`
 
 - 功能：可视化展示构建后各个包的大小
 
@@ -112,9 +122,11 @@
 
   ![image-20230402161741215](./@vuecli 5.x配置实践.assets/image-20230402161741215.png)
 
-#### 构建优化
+## 2、构建优化
 
-##### 多线程优化`thread-loader`
+### 1）多线程优化
+
+- 插件：`thread-loader`
 
 - vue cli默认为Babel/TypeScript转译开启，不需要额外配置
 - 注：thread-loader的启用开销为只600ms左右，最好只针对耗时操作启用。
@@ -146,7 +158,7 @@
       - `babel-loader`的`cacheDirectory`选项
       - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
 
-##### 构建进度条
+### 2）构建进度条
 
 - ProgressPlugin
 
@@ -176,9 +188,9 @@
 
   - webpackbar
 
-#### 生产优化
+## 3、生产优化
 
-##### 减少js代码体积
+### 1）减少js代码体积
 
 - 删除console、debugger、注释
 
@@ -212,7 +224,7 @@
   });
   ```
 
-##### 压缩图片资源
+### 2）压缩图片资源
 
 - `image-minimizer-webpack-plugin`
 
@@ -277,12 +289,12 @@
 
   - 注：webpack5官网配置有误，上面是该依赖的git仓库提供的配置
 
-##### `dll`动态链接库
+### 3）动态链接库dll
 
 - 自webpack4起已过时，vue-cli也已移除dll，同时也不推荐使用。因为webpack4有着比dll更好的打包性能。在webpack4推荐使用`hard-source-webpack-plugin`，然而这个在webpack5中也过时了，使用cache配置项爆杀上述两个。
 - vue issue [RFC: beta.10, Upgrading to webpack 4 + vue-loader 15 · Issue #1205 · vuejs/vue-cli (github.com)](https://github.com/vuejs/vue-cli/issues/1205)
 
-##### 启用gzip压缩文件
+### 4）启用gzip压缩文件
 
 - 配置
 
@@ -335,9 +347,9 @@
 
 
 
-##  二、详细介绍
+#  四、详细介绍
 
-### 1、基础内容
+## 1、基础内容
 
 ​	1）CLI 
 
@@ -357,7 +369,7 @@
 
   CLI 插件是向你的 Vue 项目提供可选功能的 npm 包。Vue CLI 插件的名字以 `@vue/cli-plugin-` (内建插件) 或 `vue-cli-plugin-` (社区插件) 开头。
 
-### 2、初始配置
+## 2、初始配置
 
 ### 1）目录
 
@@ -455,7 +467,7 @@ module.exports = {
 }
 ```
 
-### 3、默认配置
+## 3、默认配置
 
 1）默认使用babel、eslint
 
@@ -555,7 +567,7 @@ module.exports = {
 
 
 
-### 4、优化
+## 4、优化
 
 1）现代模式 vue-cli-service build --modern [浏览器兼容性 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/browser-compatibility.html#%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F)
 
@@ -567,7 +579,7 @@ module.exports = {
 
 ​	[CLI 服务 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/cli-service.html#vue-cli-service-inspect)
 
-### 5、其他
+## 5、其他
 
 1）Runtime + Compiler和Runtime-only的区别
 
