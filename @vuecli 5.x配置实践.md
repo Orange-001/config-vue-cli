@@ -8,61 +8,100 @@
 
 ​	Node@18.15.0；npm@9.5.0；vue@^3.2.13；@vue/cli 5.0.8
 
-# 二、@vue/cli5.x做了哪些工作？
+# 二、@vue/cli5.x做了哪些工作
+
+## 1、启用Babel转译
 
 - 引入Babel转换ES代码，使用`@vue/cli-plugin-babel/preset`预设，默认将`useBuildIns: 'usage'`传递给`babel/preset-env`，这样它会根据代码中出现的语言特性自动按需引入polyfill
+
+## 2、启用缓存
+
 - Vue/Babel/TypeScript编译默认开启cache-loader缓存在`node-modules/.cache`
+
+## 3、启用多线程
+
 - 多核CPU的机器上默认为Babel/TypeScript转译开启`thread-loader`，即多线程
+
+## 4、git hook
+
 - 默认安装yorkie，让我们在`package.json`的`gitHooks`字段中指定Git hook，通常配合lint-staged使用(pre: 需安装并配置)
-- 默认使用`html-webpack-plugin`处理`public/index.html`模板，自动注入资源链接(preload/prefetch、manifest、js、css)
+
+## 5、自动注入preload、prefetch
+
 - 默认使用` @vue/preload-webpack-plugin`对link资源preload、prefetch
   - preload: vue cli会为所有初始化渲染需要的资源文件在link标签上自动注入preload
   - prefetch: vue cli会为所有作为async chunk生成的js文件(通过动态import()按需code splitting的产物)自动注入prefetch
-- 默认小于8KIB的图片资源会被内联(base64)，以减小HTTP请求的数量，同时也会使得文件略微变大(图片转base64后占据空间更大)
-- 静态资源的处理
-  - 在JS、CSS、*.vue文件中通过相对路径被引用，这类引用会被webpack处理
-    - 如果URL 是一个绝对路径 (例如 `/images/foo.png`)，它将会被保留不变
-    - 如果 URL 以 `.` 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析
-    - 如果 URL 以 `~` 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源
-    - 如果 URL 以 `@` 开头，它也会作为一个模块请求被解析。它的用处在于 Vue CLI 默认会设置一个指向 `<projectRoot>/src` 的别名 `@`。**(仅作用于模版中)**
-  - public文件夹
-    - 任何放置在 `public` 文件夹的静态资源都会被简单的复制，而不经过 webpack。你需要通过绝对路径来引用它们
-- 默认支持PostCSS、CSS Modules和包含Sass、Less、Stylus在内的预处理器
+
+## 6、静态资源处理
+
+- 在JS、CSS、*.vue文件中通过相对路径被引用，这类引用会被webpack处理
+  - 如果URL 是一个绝对路径 (例如 `/images/foo.png`)，它将会被保留不变
+  - 如果 URL 以 `.` 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析
+  - 如果 URL 以 `~` 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源
+  - 如果 URL 以 `@` 开头，它也会作为一个模块请求被解析。它的用处在于 Vue CLI 默认会设置一个指向 `<projectRoot>/src` 的别名 `@`。**(仅作用于模版中)**
+
+- public文件夹
+  - 任何放置在 `public` 文件夹的静态资源都会被简单的复制，而不经过 webpack。你需要通过绝对路径来引用它们
+
+## 7、HTML模板构建
+
+- 默认使用`html-webpack-plugin`处理`public/index.html`模板，自动注入资源链接(preload/prefetch、manifest、js、css)
+
+## 8、css及预处理器支持
+
+- CSS处理
+  - 默认使用`mini-css-extract-plugin`提取css成单独文件
+  - 默认使用`css-minimizer-webpack-plugin`压缩css代码(webpack在生产模式下自动压缩js、html)
+
+- PostCSS、CSS Modules以及预处理器支持
+
+  - 默认支持PostCSS、CSS Modules和包含Sass、Less、Stylus在内的预处理器
   - PostCSS: 可以通过`.postcssrc`文件或`vue.config.js`中的`css.loaderOptions.postcss`配置
+
   - CSS Modules：scoped技术，给css限定作用域
+
   - CSS及预处理器相关，可以通过`vue.config.js`中的`css.loaderOptions`配置
-- 配置webpack
-  - configureWebpack（Object | Function）
-    - 会被`webpack-merge`合并入最终的webpack配置，通常用于修改一些基础配置、引入插件等
-    - 一些基础值不能直接修改，如你应该修改 `vue.config.js` 中的 `outputDir` 选项而不是修改 `output.path`；你应该修改 `vue.config.js` 中的 `publicPath` 选项而不是修改 `output.publicPath`
-  - chainWebpack（Function）
-    - vue cli内部的webpack配置是通过`webapck-chain`维护的
-    - 通常用于增加、删除、修改、替换loader，修改plugin选项等
-- 模式和环境变量
-  - 模式
-    - `development`模式用于`vue-cli-service serve`
-    - `test`模式用于`vue-cli-service test:unit`
-    - `production`模式用于`vue-cli-service build`和`vue-cli-service test:e2e`
-  - 环境变量
-    - 始终可用，且可以再public/index.html中以HTML插值的方式使用
-      - VUE_APP_*：可以在vue.config.js中被赋值
-      - NODE_ENV：`development|test|production`，取决于模式
-      - BASE_URL：等于vue.config.js中的publicPath
-    - 仅vue.config.js中可用
-      - 除以上三种外
-    - 注意
-      - 环境变量不能直接在template中以process.env.*使用，要先赋值给变量再使用(template不认识process)
-- 默认使用`mini-css-extract-plugin`提取css成单独文件
-- 默认使用`css-minimizer-webpack-plugin`压缩css代码(webpack在生产模式下自动压缩js、html)
-- 代码热更新
-- 自动清除上次构建生成的内容
-- ...
+
+## 9、图片资源处理
+
+- 默认小于8KIB的图片资源会被内联(base64)，以减小HTTP请求的数量，同时也会使得文件略微变大(图片转base64后占据空间更大)
+
+## 10、webpack配置
+
+- configureWebpack（Object | Function）
+  - 会被`webpack-merge`合并入最终的webpack配置，通常用于修改一些基础配置、引入插件等
+  - 一些基础值不能直接修改，如你应该修改 `vue.config.js` 中的 `outputDir` 选项而不是修改 `output.path`；你应该修改 `vue.config.js` 中的 `publicPath` 选项而不是修改 `output.publicPath`
+- chainWebpack（Function）
+  - vue cli内部的webpack配置是通过`webapck-chain`维护的
+  - 通常用于增加、删除、修改、替换loader，修改plugin选项等
+
+## 11、模式和环境变量注入
+
+- 模式
+  - `development`模式用于`vue-cli-service serve`
+  - `test`模式用于`vue-cli-service test:unit`
+  - `production`模式用于`vue-cli-service build`和`vue-cli-service test:e2e`
+- 环境变量
+  - 始终可用，且可以再public/index.html中以HTML插值的方式使用
+    - VUE_APP_*：可以在vue.config.js中被赋值
+    - NODE_ENV：`development|test|production`，取决于模式
+    - BASE_URL：等于vue.config.js中的publicPath
+  - 仅vue.config.js中可用
+    - 除以上三种外
+  - 注意
+    - 环境变量不能直接在template中以process.env.*使用，要先赋值给变量再使用(template不认识process)
+
+## 12、代码热更新
+
+## 13、自动清除上次构建内容
+
+### ...
 
 # 三、@vue/cli 5.x还可以做哪些优化？
 
 ## 1、分析工具
 
-### 1）分析编译时长
+### 分析编译时长
 
 - 插件：`speed-measure-webpack-plugin`
 
@@ -92,7 +131,7 @@
 
   ![image-20230402160715575](./@vuecli 5.x配置实践.assets/image-20230402160715575.png)
 
-### 2）分析模块大小
+### 分析模块大小
 
 - 插件：`webpack-bundle-analyzer`
 
@@ -124,41 +163,41 @@
 
 ## 2、构建优化
 
-### 1）多线程优化
+### 多线程优化
 
 - 插件：`thread-loader`
 
 - vue cli默认为Babel/TypeScript转译开启，不需要额外配置
 - 注：thread-loader的启用开销为只600ms左右，最好只针对耗时操作启用。
 
-- 缓存优化
+### 缓存优化
 
-  - webpack缓存方式介绍
+- webpack缓存方式介绍
 
-    - `cache`配置项(webpack5.x)
+  - `cache`配置项(webpack5.x)
 
-      ```js
-      const { defineConfig } = require('@vue/cli-service');
-      module.exports = defineConfig({
-        ...,
-        configureWebpack: (config) => {
-      	// 缓存生成的 webpack 模块和 chunk，来改善构建速度
-          config.cache = {
-          	type: 'filesystem',
-          	allowCollectingMemory: true
-          };
-        }
-      });
-      ```
+    ```js
+    const { defineConfig } = require('@vue/cli-service');
+    module.exports = defineConfig({
+      ...,
+      configureWebpack: (config) => {
+    	// 缓存生成的 webpack 模块和 chunk，来改善构建速度
+        config.cache = {
+        	type: 'filesystem',
+        	allowCollectingMemory: true
+        };
+      }
+    });
+    ```
 
-    - 下面几种缓存方式都有首次启动时的开销，即它们会让 "冷启动" 时间会更长，但是二次启动能够节省很多时间
+  - 下面几种缓存方式都有首次启动时的开销，即它们会让 "冷启动" 时间会更长，但是二次启动能够节省很多时间
 
-      - `cache-loader`
-      - `hard-source-webpack-plugin`（vue/cli使用的是webpack5，不可用）
-      - `babel-loader`的`cacheDirectory`选项
-      - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
+    - `cache-loader`
+    - `hard-source-webpack-plugin`（vue/cli使用的是webpack5，不可用）
+    - `babel-loader`的`cacheDirectory`选项
+    - vue cli默认为vue、babel、js、eslint、splitChunks启用了缓存
 
-### 2）构建进度条
+### 构建进度条
 
 - ProgressPlugin
 
@@ -190,7 +229,19 @@
 
 ## 3、生产优化
 
-### 1）减少js代码体积
+### 关闭生产环境sourcemap
+
+```js
+const { defineConfig } = require('@vue/cli-service');
+module.exports = defineConfig({
+	...,
+	productionSourceMap: false
+})
+```
+
+
+
+### 减少js代码体积
 
 - 删除console、debugger、注释
 
@@ -224,7 +275,7 @@
   });
   ```
 
-### 2）压缩图片资源
+### 压缩图片资源
 
 - `image-minimizer-webpack-plugin`
 
@@ -289,12 +340,12 @@
 
   - 注：webpack5官网配置有误，上面是该依赖的git仓库提供的配置
 
-### 3）动态链接库dll
+### 动态链接库dll
 
 - 自webpack4起已过时，vue-cli也已移除dll，同时也不推荐使用。因为webpack4有着比dll更好的打包性能。在webpack4推荐使用`hard-source-webpack-plugin`，然而这个在webpack5中也过时了，使用cache配置项爆杀上述两个。
 - vue issue [RFC: beta.10, Upgrading to webpack 4 + vue-loader 15 · Issue #1205 · vuejs/vue-cli (github.com)](https://github.com/vuejs/vue-cli/issues/1205)
 
-### 4）启用gzip压缩文件
+### 启用gzip压缩文件
 
 - 配置
 
@@ -345,9 +396,7 @@
 
 
 
-
-
-#  四、详细介绍
+#  四、详细介绍(比较乱，酌情观看)
 
 ## 1、基础内容
 
@@ -371,7 +420,7 @@
 
 ## 2、初始配置
 
-### 1）目录
+1）目录
 
 ![image-20230402160817661](./@vuecli 5.x配置实践.assets/image-20230402160817661.png)
 
@@ -565,8 +614,6 @@ module.exports = {
 
 14）Vue CLI 应用都使用 `@vue/babel-preset-app`，它包含了 `babel-preset-env`、JSX 支持以及为最小化包体积优化过的配置
 
-
-
 ## 4、优化
 
 1）现代模式 vue-cli-service build --modern [浏览器兼容性 | Vue CLI (vuejs.org)](https://cli.vuejs.org/zh/guide/browser-compatibility.html#%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F)
@@ -586,3 +633,9 @@ module.exports = {
 [Vue教程(四十)Runtime + Compiler和Runtime-only的区别_vue build runtime__否极泰来_的博客-CSDN博客](https://blog.csdn.net/yuan_xw/article/details/119699623)
 
 2）
+
+# 五、结语
+
+​	才疏学浅，抛砖引玉。如果有更好的配置方案或补充，还望不吝赐教，欢迎评论。
+
+​	最后附上完整配置链接：https://github.com/Orange-001/config-vue-cli.git
